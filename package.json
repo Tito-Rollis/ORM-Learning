@@ -1,0 +1,11 @@
+{
+  "name": "binar_challenge_chapter_6_tito",
+  "version": "1.0.0",
+  "description": "Challenge Chap 6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tito",
+  "license": "ISC"
+}
