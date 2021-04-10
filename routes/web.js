@@ -22,5 +22,11 @@ web.get("/", dashboardController.index);
 web.get("/add", dashboardController.add);
 // Post User
 web.post("/add", dashboardController.postUser);
+// Edit Page
+web.get("/edit/:id", dashboardController.edit);
+// Edit User
+web.post("/edit/:id", dashboardController.editUser);
+// Delete User
+web.get("/delete/:id", dashboardController.deleteUser);
 
 module.exports = web;

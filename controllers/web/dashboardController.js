@@ -33,6 +33,50 @@ class DashboardController {
 				console.log(err);
 			});
 	};
+
+	edit = (req, res) => {
+		const index = req.params.id;
+		// SEQUELIZE CODE
+		user_game
+			.findOne({
+				where: {id: index},
+			})
+			.then((user) => {
+				res.render(join(__dirname, "../../views/dashboard"), {
+					content: "./updateUser",
+					user: user,
+				});
+			});
+	};
+
+	editUser = (req, res) => {
+		user_game
+			.update(
+				{
+					username: req.body.username,
+					password: req.body.password,
+				},
+				{where: {id: req.params.id}}
+			)
+			.then((user) => {
+				res.redirect("/");
+			})
+			.catch((err) => {
+				res.status(422).json("Can't update user");
+			});
+	};
+
+	deleteUser = (req, res) => {
+		user_game
+			.destroy({
+				where: {
+					id: req.params.id,
+				},
+			})
+			.then(() => {
+				res.redirect("/");
+			});
+	};
 }
 
 module.exports = DashboardController;
