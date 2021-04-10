@@ -5,6 +5,7 @@ const {join} = require("path");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const api = require("./routes/api.js");
+const web = require("./routes/web");
 
 const port = process.env.PORT || 3000;
 
@@ -19,7 +20,7 @@ app.use(morgan("dev"));
 
 // Load routes
 app.use("/api", bodyParser.json(), api);
-// app.use("/", bodyParser.json(), bodyParser.urlencoded({extended: true}), web);
+app.use("/", bodyParser.json(), bodyParser.urlencoded({extended: true}), web);
 
 // 404 handler middleware
 app.use(function (req, res, next) {
