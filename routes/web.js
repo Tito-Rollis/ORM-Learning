@@ -18,5 +18,9 @@ web.get("/logout", loginController.logout);
 
 // Dashboard Page
 web.get("/", dashboardController.index);
+// Edit Page
+web.get("/add", dashboardController.add);
+// Post User
+web.post("/add", dashboardController.postUser);
 
 module.exports = web;
