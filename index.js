@@ -4,6 +4,7 @@ const path = require("path");
 const {join} = require("path");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const api = require("./routes/api.js");
 
 const port = process.env.PORT || 3000;
 
@@ -17,7 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 
 // Load routes
-app.use("/api", api);
+app.use("/api", bodyParser.json(), api);
 // app.use("/", bodyParser.json(), bodyParser.urlencoded({extended: true}), web);
 
 // 404 handler middleware
