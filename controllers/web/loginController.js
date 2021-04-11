@@ -33,7 +33,10 @@ class LoginController {
 			});
 	};
 	// Log out
-	logout = (req, res) => {};
+	logout = (req, res) => {
+		res.clearCookie("loginData");
+		res.redirect("/login");
+	};
 }
 
 module.exports = LoginController;

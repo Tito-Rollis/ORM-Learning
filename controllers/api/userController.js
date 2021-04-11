@@ -30,6 +30,8 @@ class UserController {
 			.create({
 				username: body.username,
 				password: body.password,
+				user_biodata: body.user_biodata,
+				user_history: body.user_history,
 				createdAt: new Date(),
 				updatedAt: new Date(),
 			})

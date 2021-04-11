@@ -2,16 +2,22 @@
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		[
-			queryInterface.addColumn(
-				"user_game_biodata", // table name
-				"user_id", // new field name
-				{
-					type: Sequelize.INTEGER,
-					allowNull: true,
-				}
-			),
-		];
+		// [
+		// 	queryInterface.addColumn(
+		// 		"user_game", // table name
+		// 		"user_biodata", // new field name
+		// 		{
+		// 			type: Sequelize.INTEGER,
+		// 		}
+		// 	),
+		// 	queryInterface.addColumn(
+		// 		"user_game", // table name
+		// 		"user_history", // new field name
+		// 		{
+		// 			type: Sequelize.INTEGER,
+		// 		}
+		// 	),
+		// ];
 	},
 
 	down: async (queryInterface, Sequelize) => {
@@ -21,5 +27,6 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.dropTable('users');
 		 */
+		await queryInterface.removeColumn("user_game_biodata", "user_id");
 	},
 };

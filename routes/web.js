@@ -18,7 +18,7 @@ web.post("/login", loginController.doLogin);
 web.get("/logout", loginController.logout);
 
 // Auth Middleware
-// web.use(AuthMiddleware());
+web.use(AuthMiddleware());
 
 // Dashboard Page
 web.get("/", dashboardController.index);
