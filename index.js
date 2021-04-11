@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const api = require("./routes/api.js");
 const web = require("./routes/web");
-
+const ResponseMiddleware = require("./middlewares/ResponseMiddleware");
 const port = process.env.PORT || 3000;
 
 // Set view engine
@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(morgan("dev"));
 
 // Load routes
-app.use("/api", bodyParser.json(), api);
+app.use("/api", bodyParser.json(), ResponseMiddleware(), api);
 app.use("/", bodyParser.json(), bodyParser.urlencoded({extended: true}), web);
 
 // 404 handler middleware

@@ -5,6 +5,7 @@ const LoginController = require("../controllers/web/loginController.js");
 const DashboardController = require("../controllers/web/dashboardController.js");
 const loginController = new LoginController();
 const dashboardController = new DashboardController();
+const AuthMiddleware = require("../middlewares/AuthMiddleware");
 const {user_game} = require("../models");
 const cookieParser = require("cookie-parser");
 
@@ -15,6 +16,9 @@ web.use(cookieParser());
 web.get("/login", loginController.login);
 web.post("/login", loginController.doLogin);
 web.get("/logout", loginController.logout);
+
+// Auth Middleware
+// web.use(AuthMiddleware());
 
 // Dashboard Page
 web.get("/", dashboardController.index);
