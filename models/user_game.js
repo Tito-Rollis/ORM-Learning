@@ -11,17 +11,15 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 
 			// 1 to 1
-			user_game.associate = (models) => {
-				user_game.hasOne(models.user_game_biodata, {
-					foreignKey: "user_biodata",
-					onDelete: "CASCADE",
-				}),
-					// 1 to many
-					user_game.hasMany(models.user_game_biodata, {
-						foreignKey: "user_biodata",
-						onDelete: "CASCADE",
-					});
-			};
+			user_game.hasOne(models.user_game_biodata, {
+				foreignKey: "user_id",
+				as: "user_biodata",
+				onDelete: "CASCADE",
+			});
+			// // 1 to many
+			// user_game.hasMany(models.user_game_history, {
+			// 	as: "user_history",
+			// });
 		}
 	}
 	user_game.init(

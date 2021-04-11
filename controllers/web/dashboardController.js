@@ -1,5 +1,5 @@
 const {join} = require("path");
-const {user_game} = require("../../models");
+const {user_game, user_game_biodata} = require("../../models");
 const bcrypt = require("bcrypt");
 
 class DashboardController {
@@ -22,10 +22,23 @@ class DashboardController {
 		const salt = await bcrypt.genSalt(10);
 
 		user_game
-			.create({
-				username: req.body.username,
-				password: await bcrypt.hash(req.body.password, salt),
-			})
+			.create(
+				{
+					username: req.body.username,
+					password: await bcrypt.hash(req.body.password, salt),
+					user_biodata: {
+						name: req.body.name,
+						sex: req.body.sex,
+						email: req.body.email,
+					},
+				},
+				{
+					include: {
+						model: user_game_biodata,
+						as: "user_biodata",
+					},
+				}
+			)
 			.then(() => {
 				res.redirect("/");
 			})
