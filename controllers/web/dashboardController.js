@@ -1,5 +1,5 @@
 const {join} = require("path");
-const {user_game, user_game_biodata} = require("../../models");
+const {user_game, user_game_biodata, user_game_history} = require("../../models");
 const bcrypt = require("bcrypt");
 
 class DashboardController {
@@ -26,17 +26,27 @@ class DashboardController {
 				{
 					username: req.body.username,
 					password: await bcrypt.hash(req.body.password, salt),
-					user_biodata: {
+					biodata_id: {
 						name: req.body.name,
 						sex: req.body.sex,
 						email: req.body.email,
 					},
+					history_id: {
+						skor: Math.floor(Math.random() * 60 + 1),
+						play_time: `${Math.floor(Math.random() * 100)} minutes`,
+					},
 				},
 				{
-					include: {
-						model: user_game_biodata,
-						as: "user_biodata",
-					},
+					include: [
+						{
+							model: user_game_biodata,
+							as: "biodata_id",
+						},
+						{
+							model: user_game_history,
+							as: "history_id",
+						},
+					],
 				}
 			)
 			.then(() => {
@@ -68,8 +78,19 @@ class DashboardController {
 				{
 					username: req.body.username,
 					password: req.body.password,
+					user_id: {
+						name: req.body.name,
+						sex: req.body.sex,
+						email: req.body.email,
+					},
 				},
-				{where: {id: req.params.id}}
+				{where: {id: req.params.id}},
+				{
+					include: {
+						model: user_game_biodata,
+						as: "biodata_id",
+					},
+				}
 			)
 			.then((user) => {
 				res.redirect("/");

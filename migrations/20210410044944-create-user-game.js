@@ -14,6 +14,12 @@ module.exports = {
 			password: {
 				type: Sequelize.STRING,
 			},
+			// biodata_id: {
+			// 	type: Sequelize.INTEGER,
+			// },
+			// history_id: {
+			// 	type: Sequelize.INTEGER,
+			// },
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,

@@ -11,8 +11,9 @@ module.exports = (sequelize, DataTypes) => {
 			// define association here
 			user_game_history.associate = (models) => {
 				user_game_history.belongsTo(models.user_game, {
-					foreignKey: "user_id",
+					foreignKey: "history_id",
 					onDelete: "CASCADE",
+					onUpdate: "CASCADE",
 				});
 			};
 		}
@@ -20,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 	user_game_history.init(
 		{
 			skor: DataTypes.INTEGER,
-			play_time: DataTypes.INTEGER,
+			play_time: DataTypes.STRING,
+			user_id: DataTypes.INTEGER,
 		},
 		{
 			sequelize,
