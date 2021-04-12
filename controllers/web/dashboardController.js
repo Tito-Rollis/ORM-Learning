@@ -63,6 +63,16 @@ class DashboardController {
 		user_game
 			.findOne({
 				where: {id: index},
+				include: [
+					{
+						model: user_game_biodata,
+						as: "biodata_id",
+					},
+					{
+						model: user_game_history,
+						as: "history_id",
+					},
+				],
 			})
 			.then((user) => {
 				res.render(join(__dirname, "../../views/dashboard"), {
@@ -73,31 +83,28 @@ class DashboardController {
 	};
 
 	editUser = (req, res) => {
-		user_game
-			.update(
-				{
-					username: req.body.username,
-					password: req.body.password,
-					user_id: {
-						name: req.body.name,
-						sex: req.body.sex,
-						email: req.body.email,
-					},
-				},
-				{where: {id: req.params.id}},
-				{
-					include: {
-						model: user_game_biodata,
-						as: "biodata_id",
-					},
-				}
-			)
-			.then((user) => {
-				res.redirect("/");
-			})
-			.catch((err) => {
-				res.status(422).json("Can't update user");
-			});
+		// user_game.update(
+		// 	{
+		// 		username: req.body.username,
+		// 		password: req.body.password,
+		// 	},
+		// 	{where: {id: req.params.id}}
+		// );
+		// biodata_id
+		// 	.update(
+		// 		{
+		// 			name: req.body.name,
+		// 			sex: req.body.sex,
+		// 			email: req.body.email,
+		// 		},
+		// 		{where: {user_id: req.params.id}}
+		// 	)
+		// 	.then((user) => {
+		// 		res.redirect("/");
+		// 	})
+		// 	.catch((err) => {
+		// 		res.status(422).json("Can't update user");
+		// 	});
 	};
 
 	deleteUser = (req, res) => {

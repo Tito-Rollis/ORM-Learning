@@ -27,9 +27,23 @@ class UserController {
 		const index = req.params.index;
 		// SEQUELIZE CODE
 		user_game
-			.findAll({
-				where: {id: index},
-			})
+			.findAll(
+				{
+					include: [
+						{
+							model: user_game_biodata,
+							as: "biodata_id",
+						},
+						{
+							model: user_game_history,
+							as: "history_id",
+						},
+					],
+				},
+				{
+					where: {id: index},
+				}
+			)
 			.then((user) => {
 				console.log(user);
 				res.send(user);
