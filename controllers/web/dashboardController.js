@@ -83,35 +83,45 @@ class DashboardController {
 	};
 
 	editUser = (req, res) => {
-		// user_game.update(
-		// 	{
-		// 		username: req.body.username,
-		// 		password: req.body.password,
-		// 	},
-		// 	{where: {id: req.params.id}}
-		// );
-		// biodata_id
-		// 	.update(
-		// 		{
-		// 			name: req.body.name,
-		// 			sex: req.body.sex,
-		// 			email: req.body.email,
-		// 		},
-		// 		{where: {user_id: req.params.id}}
-		// 	)
-		// 	.then((user) => {
-		// 		res.redirect("/");
-		// 	})
-		// 	.catch((err) => {
-		// 		res.status(422).json("Can't update user");
-		// 	});
+		user_game.update(
+			{
+				username: req.body.username,
+				password: req.body.password,
+			},
+			{where: {id: req.params.id}}
+		);
+		user_game_biodata
+			.update(
+				{
+					name: req.body.name,
+					sex: req.body.sex,
+					email: req.body.email,
+				},
+				{where: {user_id: req.params.id}}
+			)
+			.then((user) => {
+				res.redirect("/");
+			})
+			.catch((err) => {
+				res.status(422).json("Can't update user");
+			});
 	};
 
 	deleteUser = (req, res) => {
-		user_game
+		user_game.destroy({
+			where: {
+				id: req.params.id,
+			},
+		});
+		user_game_biodata.destroy({
+			where: {
+				user_id: req.params.id,
+			},
+		});
+		user_game_history
 			.destroy({
 				where: {
-					id: req.params.id,
+					user_id: req.params.id,
 				},
 			})
 			.then(() => {
