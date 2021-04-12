@@ -1,13 +1,26 @@
-const {user_game} = require("../../models");
+const {user_game, user_game_biodata, user_game_history} = require("../../models");
 // const {Op} = require("sequelize");
 
 class UserController {
 	getUser = (req, res) => {
 		// SEQUELIZE CODE
-		user_game.findAll().then((user) => {
-			console.log(user);
-			res.send(user);
-		});
+		user_game
+			.findAll({
+				include: [
+					{
+						model: user_game_biodata,
+						as: "biodata_id",
+					},
+					{
+						model: user_game_history,
+						as: "history_id",
+					},
+				],
+			})
+			.then((user) => {
+				console.log(user);
+				res.send(user);
+			});
 	};
 
 	getDetailUser = (req, res) => {
